@@ -19,7 +19,7 @@
 
                     <v-card-text class="headline font-weight-bold" style="white-space:pre-wrap; word-wrap:break-word;">{{detail}}</v-card-text>
                     <v-card-actions>
-                        <v-list-item class="grow">
+                        <v-list-item>
                             <v-list-item-avatar color="grey darken-3">
                             <v-img src="http://flat-icon-design.com/f/f_object_174/s256_f_object_174_0bg.png"></v-img>
                             </v-list-item-avatar>

@@ -1,7 +1,9 @@
 <template>
+  <v-container>
     <div id="app">
         <v-row>
-            <v-col cols="12" md="12">
+            <v-col md="2"></v-col>
+            <v-col cols="12" md="8">
             <v-form>
                 <v-text-field
                 v-model="title"
@@ -40,6 +42,7 @@
             </v-col>
         </v-row>
     </div>
+  </v-container>
 </template>
 
 <script>

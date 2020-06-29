@@ -1,31 +1,32 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col cols="12" md="12">
-        <v-list color="#e7dfd5">
-          <v-subheader class="font-weight-bold">{{ title }}</v-subheader>
-          <v-col v-for="blog in bloglist" :key="blog.id" cols="12" class="pt-0">
-            <v-card>
-              <nuxt-link :to="`/blogs/${blog.id}`">
-                <v-card-title class="headline pb-0">{{blog.title}}</v-card-title>
-                <v-card-text class="pb-0">{{ blog.summary }}</v-card-text>
+    <v-container fluid>
+      <v-row>
+        <v-col
+          v-for="blog in bloglist"
+          :key="blog.id"
+          cols="12"
+          sm="6"
+          md="4"
+          class="d-flex"
+        >
+          <v-hover v-slot:default="{ hover }">
+            <v-card color="#e7dfd5" width="100%" :elevation="hover ? 6 : 2">
+              <nuxt-link :to="`/blogs/${blog.id}`" class="d-block" style="height: 100%;">
+                <v-card-title class="card-text">{{ blog.title }}</v-card-title>
+                <v-card-text class="card-text">{{ blog.summary }}</v-card-text>
                 <v-card-actions class="pt-0">
-                  <v-col cols="10" md="10" class="pl-0">
                     <v-btn text>
                       <v-chip color="grey lighten-3" label>
                         {{ blog.name }}
                       </v-chip>
                     </v-btn>
-                  </v-col>
                 </v-card-actions>
               </nuxt-link>
             </v-card>
-          </v-col>
-        </v-list>
-      </v-col>
-    </v-row>
-
-  </v-container>
+          </v-hover>
+        </v-col>
+      </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -49,13 +50,12 @@ export default {
 </script>
 
 <style>
-.theme--light.v-label {
+.card-text {
   color: #000;
 }
-.v-input--selection-controls:not(.v-input--hide-details) .v-input__slot {
-  margin-bottom: 0px;
-}
-.v-application--is-ltr .v-list-item__avatar:first-child {
-  margin-right: 0;
+.v-application a{
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 </style>
