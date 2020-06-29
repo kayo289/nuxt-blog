@@ -32,7 +32,7 @@
                 >
                     編集を登録
                 </v-btn>
-                <v-btn to="/board" color="#204051" dark class="font-weight-bold">
+                <v-btn to="/" color="#204051" dark class="font-weight-bold">
                     topに戻る
                 </v-btn>
                 <v-btn @click="remove($route.params.id)" color="#204051" dark class="font-weight-bold">
