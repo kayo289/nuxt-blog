@@ -17,9 +17,7 @@
                     </v-row>
                     </v-card-title>
 
-                    <v-card-text class="headline font-weight-bold">
-                        {{detail}}
-                    </v-card-text>
+                    <v-card-text class="headline font-weight-bold" style="white-space:pre-wrap; word-wrap:break-word;">{{detail}}</v-card-text>
                     <v-card-actions>
                         <v-list-item class="grow">
                             <v-list-item-avatar color="grey darken-3">
@@ -33,7 +31,7 @@
                     </v-card-actions>
                 </v-card>
                 <div class="button-box">
-                    <v-btn to="/board" color="#204051" dark class="font-weight-bold">
+                    <v-btn to="/" color="#204051" dark class="font-weight-bold">
                         戻る
                     </v-btn>
                     <v-btn :to="`/blogs/edit/${$route.params.id}`" color="#204051" dark class="font-weight-bold">
