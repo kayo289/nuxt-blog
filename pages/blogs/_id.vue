@@ -10,11 +10,6 @@
                 >
                     <v-card-title>
                         <span class="title font-weight-light">{{title}}</span>
-                    <v-row justify="end">
-                        <v-btn icon color="#204051" text dark @click="remove($route.params.id)">
-                            <v-icon>mdi-close-circle-outline</v-icon>
-                        </v-btn>
-                    </v-row>
                     </v-card-title>
 
                     <v-card-text class="headline font-weight-bold" style="white-space:pre-wrap; word-wrap:break-word;">{{detail}}</v-card-text>
@@ -56,7 +51,7 @@ export default {
     methods: {
         remove(id) {
             this.$store.dispatch('blog/remove', id)
-            this.$router.push('/board')
+            this.$router.push('/')
         }
     },
     mounted() {

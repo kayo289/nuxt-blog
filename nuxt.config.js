@@ -79,5 +79,8 @@ export default {
         _: 'lodash'
       })
     ]
+  },
+  router: {
+    middleware: ['auth']
   }
 }
