@@ -20,11 +20,6 @@
                 label="detail"
                 ></v-text-field>
 
-                <v-text-field
-                v-model="name"
-                label="name"
-                ></v-text-field>
-
                 <v-btn
                 dark class="font-weight-bold"
                 color="#204051"
@@ -47,21 +42,24 @@
 
 <script>
 import firebase from '~/plugins/firebase'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
-export default {   
+export default {
     data: () => ({
         title: '',
         detail: '',
         summary: '',
-        name: '',
     }),
     methods: {
-        remove(id) {
-            this.$store.dispatch('blog/remove', id)
+        async remove(id) {
+            const response = await axios.delete(`http://localhost:8080/api/v1/blogs/${this.$route.params.id}`, {
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('access_token')}`,
+            }});
             this.$router.push('/')
         },
         update(id) {
-            // this.$store.dispatch('blog/update', id, this.title, this.detail, this.summary, this.name)
             const db = firebase.firestore()
             const blogRef = db.collection('blogs')
             blogRef.doc(id).update({
@@ -69,21 +67,19 @@ export default {
                 summary: this.summary,
                 detail: this.detail,
                 date: firebase.firestore.FieldValue.serverTimestamp(),
-                name: this.name,
             })
             this.$router.push('/')
         }
     },
-    mounted() {
-        const db = firebase.firestore()
-        const docRef = db.collection('blogs').doc(this.$route.params.id)
-        docRef.get().then((doc)=>{
-            const data = doc.data()
-            this.title = data.title
-            this.detail = data.detail
-            this.summary = data.summary
-            this.name = data.name
-            this.date = data.date
+    async mounted() {
+        console.log(this.$route.params.id)
+        await axios.get(`http://localhost:8080/api/v1/blogs/${this.$route.params.id}`)
+        .then((res)=>{
+            res = res["data"]["data"]
+            this.title = res.title
+            this.detail =res.detail
+            this.summary = res.summary
+            this.name = "user"+res.id
         })
     },
 }
