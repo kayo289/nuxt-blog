@@ -59,15 +59,16 @@ export default {
             }});
             this.$router.push('/')
         },
-        update(id) {
-            const db = firebase.firestore()
-            const blogRef = db.collection('blogs')
-            blogRef.doc(id).update({
+        async update(id) {
+            const body = {
                 title: this.title,
-                summary: this.summary,
                 detail: this.detail,
-                date: firebase.firestore.FieldValue.serverTimestamp(),
-            })
+                summary: this.summary
+            }
+            const response = await axios.put(`http://localhost:8080/api/v1/blogs/${this.$route.params.id}`, body,{
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('access_token')}`,
+            }});
             this.$router.push('/')
         }
     },
