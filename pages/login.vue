@@ -11,6 +11,7 @@
 <script>
 // ここ追加①
 import { auth } from '../plugins/firebase'
+import Cookies from 'js-cookie'
 
 export default {
   data () {
@@ -21,10 +22,15 @@ export default {
   },
   methods: {
     login () {
-      // ここ追加②
       auth.signInWithEmailAndPassword(this.mail, this.pass)
-        .then(user => this.$router.push('/'))
+        .then(user => {
+          auth.currentUser.getIdToken(true).then((idToken) => {
+            Cookies.set('access_token', idToken)
+          })
+          this.$router.push('/')
+          })
         .catch(e => alert(e.message))
+
     }
   }
 }

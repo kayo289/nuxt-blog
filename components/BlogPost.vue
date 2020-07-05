@@ -22,9 +22,6 @@
             <v-col cols="12">
               <v-textarea v-model="detail" label="Detail"></v-textarea>
             </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="name" label="Name"></v-text-field>
-            </v-col>
           </v-row>
         </v-container>
       </v-card-text>
@@ -39,6 +36,8 @@
 
 <script>
 import firebase from '~/plugins/firebase'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 export default {
   data() {
@@ -53,14 +52,16 @@ export default {
     }
   },
   methods: {
-    add() {
-      this.$store.dispatch('blog/add', {
+    async add() {
+      const body = {
         title: this.title,
         detail: this.detail,
-        date: firebase.firestore.FieldValue.serverTimestamp(),
-        name: this.name,
-        summary: this.summary,
-      })
+        summary: this.summary
+      }
+      const response = await axios.post("http://localhost:8080/api/v1/blogs", body, {
+        headers: {
+          'Authorization': `Bearer ${Cookies.get('access_token')}`,
+        }});
       this.dialog = false
     }
   }

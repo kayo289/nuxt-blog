@@ -8,7 +8,8 @@
         </v-col>
       </v-row>
     </v-form>
-    <blog-list title="blog index" :bloglist="bloglist"></blog-list>
+    <!-- {{blogs}} -->
+    <blog-list title="blog index" :bloglist="blogs"></blog-list>
   </v-container>
 </template>
 
@@ -16,21 +17,22 @@
 import BlogList from '../components/BlogList.vue'
 import BlogPost from '../components/BlogPost.vue'
 import { auth } from '../plugins/firebase'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 export default {
   data () {
     return {
-      isLogin: false
+      isLogin: false,
     }
   },
   components: {
     BlogList,
     BlogPost,
   },
-  computed: {
-    bloglist() {
-      return this.$store.getters['blog/orderdBlogs']
-    },
+  async asyncData ({ params }) {
+    let { data } = await axios.get(`http://localhost:8080/api/v1/blogs`)
+    return { blogs: data["data"] }
   },
   created() {
     this.$store.dispatch('blog/init')
@@ -42,6 +44,7 @@ export default {
   methods: {
     async logout() {
       await auth.signOut()
+      Cookies.remove('access_token');
       this.$router.push('/login')
     }
   }

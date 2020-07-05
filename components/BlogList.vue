@@ -17,7 +17,7 @@
                 <v-card-actions class="pt-0">
                     <v-btn text>
                       <v-chip color="grey lighten-3" label>
-                        {{ blog.name }}
+                        user{{ blog.id }}
                       </v-chip>
                     </v-btn>
                 </v-card-actions>
