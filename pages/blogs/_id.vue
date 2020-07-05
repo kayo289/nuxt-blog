@@ -9,10 +9,10 @@
                     max-width="600"
                 >
                     <v-card-title>
-                        <span class="title font-weight-light">{{title}}</span>
+                        <span class="title font-weight-light">{{blog.title}}</span>
                     </v-card-title>
 
-                    <v-card-text class="headline font-weight-bold" style="white-space:pre-wrap; word-wrap:break-word;">{{detail}}</v-card-text>
+                    <v-card-text class="headline font-weight-bold" style="white-space:pre-wrap; word-wrap:break-word;">{{blog.detail}}</v-card-text>
                     <v-card-actions>
                         <v-list-item>
                             <v-list-item-avatar color="grey darken-3">
@@ -20,7 +20,7 @@
                             </v-list-item-avatar>
 
                             <v-list-item-content>
-                            <v-list-item-title>{{ name }}</v-list-item-title>
+                            <v-list-item-title>{{ blog.name }}</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                     </v-card-actions>
@@ -29,7 +29,7 @@
                     <v-btn to="/" color="#204051" dark class="font-weight-bold">
                         戻る
                     </v-btn>
-                    <v-btn :to="`/blogs/edit/${$route.params.id}`" color="#204051" dark class="font-weight-bold">
+                    <v-btn :to="`/blogs/edit/${blog.id}`" color="#204051" dark class="font-weight-bold">
                         編集
                     </v-btn>
                 </div>
@@ -40,30 +40,14 @@
 
 <script>
 import firebase from '~/plugins/firebase'
+import axios from 'axios'
 
-export default {   
-    data: () => ({
-        title: '',
-        detail: '',
-        name: '',
-        date: new Date(),
-    }),
-    methods: {
-        remove(id) {
-            this.$store.dispatch('blog/remove', id)
-            this.$router.push('/')
-        }
-    },
-    mounted() {
-        const db = firebase.firestore()
-        const docRef = db.collection('blogs').doc(this.$route.params.id)
-        docRef.get().then((doc)=>{
-            const data = doc.data()
-            this.title = data.title
-            this.detail = data.detail
-            this.name = data.name
-            this.date = data.date
-        })
+export default {
+    async asyncData ({route}) {
+        console.log("aaa")
+        console.log(route.params.id)
+        let { data } = await axios.get(`http://localhost:8080/api/v1/blogs/${route.params.id}`)
+        return { blog: data["data"] }
     },
 }
 </script>
