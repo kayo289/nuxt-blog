@@ -46,7 +46,7 @@ export default {
     async asyncData ({route}) {
         console.log("aaa")
         console.log(route.params.id)
-        let { data } = await axios.get(`http://localhost:8080/api/v1/blogs/${route.params.id}`)
+        let { data } = await axios.get(`https://blogapi234.herokuapp.com/api/v1/blogs/${route.params.id}`)
         return { blog: data["data"] }
     },
 }

@@ -31,7 +31,7 @@ export default {
     BlogPost,
   },
   async asyncData ({ params }) {
-    let { data } = await axios.get(`http://localhost:8080/api/v1/blogs`)
+    let { data } = await axios.get(`https://blogapi234.herokuapp.com/api/v1/blogs`)
     return { blogs: data["data"] }
   },
   created() {

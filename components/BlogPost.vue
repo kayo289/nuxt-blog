@@ -58,7 +58,7 @@ export default {
         detail: this.detail,
         summary: this.summary
       }
-      const response = await axios.post("http://localhost:8080/api/v1/blogs", body, {
+      const response = await axios.post("https://blogapi234.herokuapp.com/api/v1/blogs", body, {
         headers: {
           'Authorization': `Bearer ${Cookies.get('access_token')}`,
         }});

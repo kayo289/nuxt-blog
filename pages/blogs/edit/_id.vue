@@ -53,7 +53,7 @@ export default {
     }),
     methods: {
         async remove(id) {
-            const response = await axios.delete(`http://localhost:8080/api/v1/blogs/${this.$route.params.id}`, {
+            const response = await axios.delete(`https://blogapi234.herokuapp.com/api/v1/blogs/${this.$route.params.id}`, {
             headers: {
                 'Authorization': `Bearer ${Cookies.get('access_token')}`,
             }});
@@ -65,7 +65,7 @@ export default {
                 detail: this.detail,
                 summary: this.summary
             }
-            const response = await axios.put(`http://localhost:8080/api/v1/blogs/${this.$route.params.id}`, body,{
+            const response = await axios.put(`https://blogapi234.herokuapp.com/api/v1/blogs/${this.$route.params.id}`, body,{
             headers: {
                 'Authorization': `Bearer ${Cookies.get('access_token')}`,
             }});
@@ -74,7 +74,7 @@ export default {
     },
     async mounted() {
         console.log(this.$route.params.id)
-        await axios.get(`http://localhost:8080/api/v1/blogs/${this.$route.params.id}`)
+        await axios.get(`https://blogapi234.herokuapp.com/api/v1/blogs/${this.$route.params.id}`)
         .then((res)=>{
             res = res["data"]["data"]
             this.title = res.title
